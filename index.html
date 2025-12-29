@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>llanos Mauchi</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      background-color: #f5f5f5;
+    }
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 1rem;
+      background: #333;
+      color: #fff;
+      z-index: 999;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    #sidebar {
+      width: 300px;
+      padding: 2rem 1rem;
+      background: #fff;
+      border-right: 1px solid #ddd;
+      overflow-y: auto;
+      height: 100vh;
+      position: sticky;
+      top: 0;
+    }
+    #gallery {
+      flex: 1;
+      padding: 6rem 1rem 1rem 1rem;
+      column-count: 3;
+      column-gap: 1rem;
+    }
+    .photo {
+      break-inside: avoid;
+      margin-bottom: 1rem;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+    .photo img {
+      width: 100%;
+      display: block;
+      border-bottom: 1px solid #ddd;
+    }
+    .metadata {
+      font-size: 0.9rem;
+      padding: 0.5rem;
+    }
+    .metadata time {
+      display: block;
+      color: #666;
+    }
+
+    @media (max-width: 768px) {
+      #gallery {
+        column-count: 1;
+      }
+      #sidebar {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>llanos Mauchi</header>
+
+  <div id="sidebar">
+    <h3>Photo Metadata</h3>
+    <ul id="metaList"></ul>
+  </div>
+
+  <div id="gallery"></div>
+
+  <script>
+    const accountName = "photosllanos"; // replace with your storage account name
+    const containerName = "photos"; // replace with your container name
+    const sasToken = ""; // optional if using anonymous public container
+
+    let marker = null;
+    const gallery = document.getElementById("gallery");
+    const metaList = document.getElementById("metaList");
+
+    async function fetchImages() {
+      let url = `https://${accountName}.blob.core.windows.net/${containerName}?restype=container&comp=list&include=metadata&maxresults=20`;
+      if (marker) url += `&marker=${marker}`;
+      if (sasToken) url += `&${sasToken}`;
+
+      const response = await fetch(url);
+      const text = await response.text();
+      const parser = new DOMParser();
+      const xml = parser.parseFromString(text, "application/xml");
+
+      const blobs = Array.from(xml.getElementsByTagName("Blob"));
+      blobs.sort((a, b) => new Date(b.querySelector("Last-Modified").textContent) - new Date(a.querySelector("Last-Modified").textContent));
+
+      blobs.forEach(blob => {
+        const name = blob.querySelector("Name").textContent;
+        const modified = blob.querySelector("Last-Modified").textContent;
+        const url = `https://${accountName}.blob.core.windows.net/${containerName}/${name}${sasToken ? "?" + sasToken : ""}`;
+
+        // Image card
+        const imgDiv = document.createElement("div");
+        imgDiv.className = "photo";
+        imgDiv.innerHTML = `
+          <img src="${url}" alt="${name}">
+          <div class="metadata"><time>${new Date(modified).toLocaleString()}</time></div>
+        `;
+        gallery.appendChild(imgDiv);
+
+        // Sidebar metadata
+        const li = document.createElement("li");
+        li.textContent = `${name} – ${new Date(modified).toLocaleDateString()}`;
+        metaList.appendChild(li);
+      });
+
+      const nextMarker = xml.querySelector("NextMarker");
+      marker = nextMarker && nextMarker.textContent ? nextMarker.textContent : null;
+    }
+
+    // Load first images
+    fetchImages();
+
+    // Infinite Scroll
+    window.addEventListener("scroll", () => {
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500 && marker) {
+        fetchImages();
+      }
+    });
+  </script>
+</body>
+</html>
+

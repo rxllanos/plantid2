@@ -1,0 +1,220 @@
+.topnav {
+    position: relative;
+    background-color: #333;
+    overflow: hidden;
+}
+
+.topnav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.topnav a.active {
+    background-color: #04AA6D;
+    color: white;
+}
+
+.topnav-centered a {
+    float: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.topnav-right {
+    float: right;
+}
+
+@media screen and (max-width: 600px) {
+    .topnav a,
+    .topnav-right {
+        float: none;
+        display: block;
+    }
+
+    .topnav-centered a {
+        position: relative;
+        top: 0;
+        left: 0;
+        transform: none;
+    }
+}
+
+
+
+
+.col-sm-3{
+    margin: 2%;
+    text-align: center;
+    padding: 2%;
+    background-color: rgb(217, 250, 215);
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    max-width: 300px; /* Adjust as needed */
+    margin: 0 auto;
+}
+
+.card__img {
+    width: 100%;
+    border-radius: 5px 5px 0 0;
+}
+
+.card__content {
+    padding: 1rem;
+}
+
+.card__header {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.card__text {
+    font-size: 1rem;
+    color: #555;
+}
+
+.card__btn {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.card__btn:hover {
+    background-color: #0056b3;
+}
+
+.separator {
+    border-bottom: 1px solid #ccc; 
+    margin: 30px;
+}
+
+.small-font {
+    font-size: 0.8rem; /* Adjust the font size as needed */
+}
+
+
+.title {
+    font-family: 'Arial', sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin: 3px;
+    letter-spacing: 2px;
+}
+
+.title {
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.title-background {
+    background: linear-gradient(90deg, #ff7e5f, #feb47b);
+    padding: 5px;
+    border-radius: 10px;
+    display: inline-block;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+#wiki {
+    background-color: #f0f0f0;
+    padding: 2px;
+    border-radius: 1px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#wiki a {
+    color: #1a0dab;
+    text-decoration: none;
+    font-size: 4px;
+    font-weight: bold;
+}
+
+
+.styled-text {
+    font-family: 'Georgia', serif;
+    font-size: 15px;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f9f9f9;
+    border-left: 5px solid #3498db;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    text-align: justify;
+}
+
+.styled-heading {
+    font-family: 'Georgia', serif;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+h3 {
+    font-family: 'Georgia', serif; /* Choose a stylish font */
+    font-size: 100px; /* Adjust size as needed */
+    color: #2c3e50; /* Dark blue color */
+    text-shadow: 2px 2px 5px rgba(224, 104, 104, 0.3); /* Subtle shadow */
+    font-weight: bold; /* Make the text bold */
+    background: linear-gradient(45deg, #918585, #736131); /* Gradient background */
+    background-clip: text; /* Clip the background to the text */
+    -webkit-text-fill-color: transparent; /* Make the text itself transparent */
+    border-radius: 5px; /* Rounded corners */
+    border: 25px solid #f7c32e; /* Gold border */
+    display: inline-block; /* Inline-block to control padding */
+    text-transform: uppercase; /* Make text uppercase */
+}
+
+.main-title {
+    text-align: center;
+    margin: 10px;
+    padding: 20px; /* Add some padding */
+}
+
+
+.dropdown-menu  {
+    position: relative;
+}
+
+.dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-left: .1rem;
+    margin-right: .1rem;
+}
+
+
+page-nav {
+    margin-bottom: 10px;
+}
+
+.modal-dialog-centered {
+    max-width: 100%;
+    height: 100%;
+    margin: 0;
+}
+.modal-content {
+    height: 100%;
+    border-radius: 0;
+}
