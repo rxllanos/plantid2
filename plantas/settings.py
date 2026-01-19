@@ -4,19 +4,17 @@ import os
 from decouple import config
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-SECRET_KEY = 'django-insecure-^f36+yx*53zu(#c78vzjob+%&t^2mqij4tmzu9inr^p8szodct'
+SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', cast=bool)
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1','lasmirlas.azurewebsites.net']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1',]
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://lasmirlas.azurewebsites.net',
     'http://127.0.0.1:8000/'
 ]
 
 CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1:8000',
-    'https://lasmirlas.azurewebsites.net'
 ]
 
 INSTALLED_APPS = [
@@ -69,17 +67,15 @@ TEMPLATES = [
     },
 ]
 
-# WSGI_APPLICATION = 'plantas.wsgi.application'
 
 DATABASES = {
     'default': {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": config('PGDATABASE'),
-        "USER": config('PGUSER'),
-        "PASSWORD": config('PGPASSWORD'),
-        "HOST": config('PGHOST'),
-        "PORT": config('PGPORT'),
-        "OPTION":{"sslmode":'require'},
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config('RDS_DB_NAME'),
+        'USER': config('RDS_USERNAME'),
+        'PASSWORD': config('RDS_PASSWORD'),
+        'HOST': config('RDS_HOST'),
+        'PORT': '5432',
     }
 }
 
@@ -103,25 +99,24 @@ TIME_ZONE = 'America/Bogota'
 USE_I18N = True
 USE_TZ = True
 
-STORAGES = {
-    "default": {"BACKEND": "plantas.azure_storage.AzureMediaStorage"},
-    "staticfiles": {"BACKEND": "plantas.azure_storage.AzureStaticStorage"},
-}
-
-AZURE_ACCOUNT_NAME = config('AZURE_ACCOUNT_NAME')
-AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
-
-STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/static-agriculture/'
-# STATIC_ROOT = BASE_DIR / 'static'
-
-MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/media-agriculture/'
-# MEDIA_ROOT = BASE_DIR / 'media'
-
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'plantas','static'),
 ]
 
+# --- AWS S3 CONFIG ---
+AWS_ACCESS_KEY_ID = config("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = config("AWS_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME = config("AWS_STORAGE_BUCKET_NAME")
+AWS_S3_REGION_NAME = "us-east-1"  # change if needed
 
+AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
+
+# S3 media
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/media/"
+
+# S3 static
+STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/static/"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
