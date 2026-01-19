@@ -1,7 +1,10 @@
+altgraph @ file:///AppleInternal/Library/BuildRoots/4~CDlvugAeMYaHcTWIELyAQ2joHAecmlI0GAlKPsw/Library/Caches/com.apple.xbs/Sources/python3/altgraph-0.17.2-py2.py3-none-any.whl
 asgiref==3.7.2
 azure-core==1.29.7
 azure-storage-blob==12.19.0
 beautifulsoup4==4.12.3
+boto3==1.42.18
+botocore==1.42.18
 certifi==2023.11.17
 cffi==1.16.0
 charset-normalizer==3.3.2
@@ -11,12 +14,16 @@ Django==4.2.9
 django-bootstrap5==23.4
 django-cors-headers==4.3.1
 django-crispy-forms==2.1
+django-environ==0.12.0
 django-storages==1.14.2
 djangorestframework==3.14.0
 et-xmlfile==1.1.0
+future @ file:///AppleInternal/Library/BuildRoots/4~CDlvugAeMYaHcTWIELyAQ2joHAecmlI0GAlKPsw/Library/Caches/com.apple.xbs/Sources/python3/future-0.18.2-py3-none-any.whl
 gunicorn==22.0.0
 idna==3.6
 isodate==0.6.1
+jmespath==1.0.1
+macholib @ file:///AppleInternal/Library/BuildRoots/4~CDlvugAeMYaHcTWIELyAQ2joHAecmlI0GAlKPsw/Library/Caches/com.apple.xbs/Sources/python3/macholib-1.15.2-py2.py3-none-any.whl
 numpy==1.26.4
 openpyxl==3.1.2
 packaging==24.0
@@ -30,8 +37,11 @@ python-dateutil==2.8.2
 python-decouple==3.8
 pytz==2023.3.post1
 requests==2.31.0
+s3transfer==0.16.0
+six @ file:///AppleInternal/Library/BuildRoots/4~CDlvugAeMYaHcTWIELyAQ2joHAecmlI0GAlKPsw/Library/Caches/com.apple.xbs/Sources/python3/six-1.15.0-py2.py3-none-any.whl
 soupsieve==2.5
 sqlparse==0.4.4
+tqdm==4.67.1
 typing_extensions==4.9.0
 tzdata==2024.1
 urllib3==1.26.15
